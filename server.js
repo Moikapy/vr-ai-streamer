@@ -30,7 +30,7 @@ Bun.serve({
         message[0],
         message[0] == '>'
       );
-      clean_message = message.split(':')
+      let clean_message = message.split(':')
       //if (!message.startsWith('>') || message[0] !== '>') return;
       const result = await invokeLLM(message);
       ws.send(JSON.stringify(result));
