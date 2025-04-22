@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  vr-ai-stream:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env.local
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    command: >
+      sh -c "bun run build && bun run start & bun run server.js"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
